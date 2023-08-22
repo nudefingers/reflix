@@ -204,14 +204,22 @@ h1 {
 }
 
 .add-funds select, .add-funds input {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding: 5px;
     width: 200px;
+
+    background-color: #222;
+    border: none;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
 }
 
 .add-funds button {
     padding: 8px 20px;
-    background-color: #007bff;
+    margin-bottom: 20px;
+    background-color: gray;
     color: white;
     border: none;
     cursor: pointer;

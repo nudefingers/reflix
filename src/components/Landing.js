@@ -18,14 +18,12 @@ function Landing({ users }) {
             <p>${user.balance}</p>
           </Link>
         ))}
-
-        <Link to="/add-money" >
+      </div>
+      <Link to="/add-money" >
           <div className="add-funds">
             <button>Add Money</button>
           </div>
         </Link>
-
-      </div>
     </React.Fragment>
   );
 }
