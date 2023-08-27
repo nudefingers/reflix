@@ -2,31 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Movie from './Movie';
 
-function Catalog({ movies, fetchData, users, toggleSwap }) {
-
-  const usersExist = users && users.length > 0  
-  const [searchTerm, setSearchTerm] = useState('')
-  const [rentedMovies, setRentedMovies] = useState([])
+function Catalog({ movies, fetchData, users, toggleSwap, searchTerm, setSearchTerm }) {
   const { userId } = useParams()
-  const isUser = userId || false
-
-  const handleUpdateMovies = () => {
-    fetchData(searchTerm)
-  }
+  const user = users.find(u => u.id === parseInt(userId))
+  const [rentedMovies, setRentedMovies] = useState(user?.rentedMovies || [])
 
   const handleToggleSwap = (movie, isRented) => {
     toggleSwap(movie, isRented, userId)
   }
-  
+
   useEffect(() => {
-    const user = users.find(u => u.id === parseInt(userId))
     if (user) {
       setRentedMovies(user.rentedMovies)
     } else {
       setRentedMovies([])
     }
-  }, [users, userId])
-
+  }, [user])
 
   return (
     <div>
@@ -36,26 +27,25 @@ function Catalog({ movies, fetchData, users, toggleSwap }) {
           className="search-input"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search movies"
         />
-        <button className="search-button" onClick={handleUpdateMovies} />
+        <button className="search-button" onClick={() => fetchData(searchTerm)} />
       </div>
-      {isUser && usersExist && (
+      {userId && user && (
         <React.Fragment>
           <div className="user-balance">
-            <h2>{users.find(user => user.id === parseInt(userId)).name}</h2>
-            Butget: ${users.find(user => user.id === parseInt(userId)).balance}
+            <h2>{user.name}</h2>
+            Butget: ${user.balance}
           </div>
           <div className="container div-with-divider">
-            {rentedMovies.map((movie) => (
-              <Movie key={movie.id} movie={movie} isRented={true} toggleSwap={handleToggleSwap} isUser={isUser} />
+            {rentedMovies.map(movie => (
+              <Movie key={movie.id} movie={movie} isRented={true} toggleSwap={handleToggleSwap} isUser={!!user} />
             ))}
           </div>
         </React.Fragment>
       )}
       <div className="container">
-        {movies.map((movie) => (
-          <Movie key={movie.id} movie={movie} isRented={false} toggleSwap={handleToggleSwap} isUser={isUser} />
+        {movies.map(movie => (
+          <Movie key={movie.id} movie={movie} isRented={false} toggleSwap={handleToggleSwap} isUser={!!user} />
         ))}
       </div>
     </div>

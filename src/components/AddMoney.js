@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 function AddMoney({ users, updateUserBalance }) {
-  const [selectedUserId, setSelectedUserId] = useState('')
-  const [amount, setAmount] = useState('')
-  const [transferAmount, setTransferAmount] = useState('')
-  const [recipientId, setRecipientId] = useState('')
+  const [selectedUserId, setSelectedUserId] = useState(``)
+  const [amount, setAmount] = useState(``)
+  const [transferAmount, setTransferAmount] = useState(``)
+  const [recipientId, setRecipientId] = useState(``)
 
   const handleUserChange = (e) => {
     setSelectedUserId(e.target.value)
@@ -25,9 +25,9 @@ function AddMoney({ users, updateUserBalance }) {
   const handleAddFunds = () => {
     const user = users.find(u => u.id === parseInt(selectedUserId))
     if (user && !isNaN(amount) && amount > 0) {
-      updateUserBalance(user.id, parseFloat(amount))
-      setSelectedUserId('')
-      setAmount('')
+      updateUserBalance(users, user.id, parseFloat(amount))
+      setSelectedUserId(``)
+      setAmount(``)
     }
   }
 
@@ -36,11 +36,15 @@ function AddMoney({ users, updateUserBalance }) {
     const recipient = users.find(u => u.id === parseInt(recipientId))
     
     if (sender && recipient && !isNaN(transferAmount) && transferAmount > 0 && sender.balance >= transferAmount) {
-      updateUserBalance(sender.id, -parseFloat(transferAmount))
-      updateUserBalance(recipient.id, parseFloat(transferAmount))
-      setSelectedUserId('')
-      setRecipientId('')
-      setTransferAmount('')
+      updateUserBalance(users, sender.id, -parseFloat(transferAmount))
+      updateUserBalance(users, recipient.id, parseFloat(transferAmount))
+      console.log(users);
+      console.log(recipient.id);
+      console.log(sender.id);
+      console.log("!!!");
+      setSelectedUserId(``)
+      setRecipientId(``)
+      setTransferAmount(``)
     }
   }
 
