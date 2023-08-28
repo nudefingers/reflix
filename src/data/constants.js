@@ -10,3 +10,7 @@ export const DEFAULT_USERS = [
 ]
 
 export const PRICE = 5
+
+
+export const GIPHY_URL = `http://api.giphy.com/v1/gifs/search?q=`
+export const GIPHY_KEY = `&api_key=RI1CIXCll0k2LGXsHrH0DRkv859fx6vX&limit=5`

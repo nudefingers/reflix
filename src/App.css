@@ -231,3 +231,14 @@ h1 {
     cursor: pointer;
     border-radius: 5px;
 }
+
+.modal {
+    background-color: #282c34;
+    display: grid;
+    margin: auto;
+    /* padding: 20px; */
+    border: 1px solid white;
+    color: white;
+    width: 50%;
+    justify-content: center;
+}
